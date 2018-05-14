@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+</head>
+<body>
+    <section>
+        <h1>Scoreboard</h1>
+        <p>Guess what letter I'm thinking by typing it on the keyboard.</p>
+        <p>Wins:
+                <span id="wins"></span>
+        </p>
+        <p>Losses:
+            <span id="losses"></span>
+        </p>
+        <p>
+            Guesses Left: 
+            <span id="guessesLeft"></span>
+        </p>
+        <p>
+            Letters Guessed: 
+                <span id="lettersGuessed"></span>
+            </p>
+
+        <p>
+            You guessed:    
+                <span id="userChoice"></span>
+            </p>
+        <h1>Play by Play</h1>
+        <h2 id="pbp"></h2>   
+
+
+    </section>
+    <script>
+        // declare variables
+    var wins = 0;
+    var losses = 0;
+    var guessesLeft = 9;
+    var lettersGuessed =[];
+    var userChoice ="";
+
+// <!-- Set mechanism to set and update scoreboard -->
+    function setScoreboardValues(anything, someotherGuyIdk) {
+            document.getElementById(anything).textContent = someotherGuyIdk;
+        }
+
+    setScoreboardValues("wins", wins); 
+    setScoreboardValues("losses", losses);
+    setScoreboardValues("guessesLeft", guessesLeft);
+    setScoreboardValues("lettersGuessed",lettersGuessed);   
+    
+    // Generate a letter
+    var answer =  String.fromCharCode(
+    Math.floor(Math.random() * 26) + 97
+  );
+
+// <!-- Capture a letter -->
+
+        document.onkeyup = function(event){
+            var userChoice = event.key;
+            console.log(userChoice);
+            setScoreboardValues("userChoice",userChoice);
+            setScoreboardValues("lettersGuessed",lettersGuessed);
+            if (userChoice === answer) {
+                setScoreboardValues("pbp","Wow! You guessed it. Let's play again.");
+                wins++;
+                setScoreboardValues("wins",wins)
+                setScoreboardValues("lettersGuessed",lettersGuessed);
+                } 
+    // if guess incorrect, decrease guessesLeft, log user choice in array of incorrect guesses
+             else {
+            setScoreboardValues("pbp","You chose " + userChoice + " but that's not right. Guess again.");
+            lettersGuessed.push(userChoice);
+            setScoreboardValues("lettersGuessed",lettersGuessed);
+            guessesLeft--;
+        }
+        }
+   console.log(answer);
+  
+
+    // compare guessed letter to chosen letter, if guessed correct, increment wins and reset letters guessed.
+
+   
+
+
+    // if match, win, else echo letter and wait for next letter, log in available guesses.
+    
+    
+    </script>
+</body>
+</html>
